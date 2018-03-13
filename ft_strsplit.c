@@ -12,7 +12,7 @@
 
 #include "libft.h"
 
-char			**ft_strsplit(char const *s, char c)
+char		**ft_strsplit(char const *s, char c)
 {
 	size_t	i;
 	size_t	j;
@@ -21,22 +21,20 @@ char			**ft_strsplit(char const *s, char c)
 
 	i = 0;
 	words = 0;
+	if (!s || !c)
+		return (NULL);
 	while (s[i] != '\0')
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			words++;
 		i++;
 	}
-	if (!s || !c ||
-		!(str_split = (char **)malloc(sizeof(char *) * (words + 1))))
+	if (!(str_split = (char **)malloc(sizeof(char *) * (words + 1))))
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (i < words)
-	{
-		str_split[i] = ft_make_word(s, c, &j);
-		i++;
-	}
+		str_split[i++] = ft_make_word(s, c, &j);
 	str_split[i] = 0;
 	return (str_split);
 }
