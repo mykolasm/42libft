@@ -21,22 +21,24 @@
 
 char		*ft_strnstr(const char *h, const char *n, size_t len)
 {
-	size_t i;
-	size_t j;
+	int i;
+	int j;
 
 	i = 0;
-	if (h[i] == n[i] && h[i] == '\0')
-		return ((char *)&h[i]);
-	while (h[i] != '\0' && i < len)
+	if (n[0] == '\0')
+		return (char *)(h);
+	while (i < (int)len && h[i] != '\0')
 	{
-		j = i;
-		while (h[i] == n[j - i] && h[j] != '\0' && j < len)
-			j++;
-		if (n[j - i] == '\0')
+		j = 0;
+		while (i < (int)len && j < (int)len && h[i] == n[j])
 		{
-			return ((char *)&h[i]);
+			i++;
+			j++;
+			if (n[j] == '\0')
+				return ((char *)(h + (i - j)));
 		}
+		i -= j;
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
